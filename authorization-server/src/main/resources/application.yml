@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  jpa:
+    hibernate.ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    show-sql: true
+    defer-datasource-initialization: false
+
+app:
+  datasource:
+    postgres:
+      host: localhost
+      port: 5432
+      databaseName: auth
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://${app.datasource.postgres.host}:${app.datasource.postgres.port}/${app.datasource.postgres.databaseName}
+      password: "@##$..234"
+
+authorization-server:
+  clients:
+    client2:
+      client-secret: secret2
+      scopes: read, write
+      grant-types: password, refresh_token
+      authorities: read, write
+    client3:
+      client-secret: secret3
+      scopes: read
+      grant-types: password
+      authorities: read
+    client4:
+      client-secret: secret4
+      scopes: read, write
+      grant-types: authorization_code
+      authorities: read, write

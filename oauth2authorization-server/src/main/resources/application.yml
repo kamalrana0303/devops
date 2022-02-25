@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  jpa:
+    hibernate.ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    show-sql: true
+    defer-datasource-initialization: false
+app:
+  datasource:
+    postgres:
+      host: localhost
+      port: 5432
+      password: '@##$..234'
+      databaseName: oauth
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://${app.datasource.postgres.host}:${app.datasource.postgres.port}/${app.datasource.postgres.databaseName}
