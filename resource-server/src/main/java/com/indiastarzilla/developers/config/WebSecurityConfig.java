@@ -29,8 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
     String jwkSetUri;
 
-    @Autowired
-    KeyConfig keyConfig;
+    @Value("${key}")
+    RSAPublicKey key;
 
     @Override
     protected  void configure(HttpSecurity http) throws  Exception{
@@ -51,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtDecoder jwtDecoder(){
        // return NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();
 
-        return NimbusJwtDecoder.withPublicKey(keyConfig.getLocation()).build();
+        return NimbusJwtDecoder.withPublicKey(key).build();
     }
 
 }

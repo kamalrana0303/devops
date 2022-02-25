@@ -5,13 +5,11 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          public-key-location: classpath:my-key.pub
           jwk-set-uri: http://localhost:8080/oauth/token_key
         opaque:
           introspection-uri: http://localhost:8080/oauth/check_token
           introspection-client-id: resource-server
           introspection-client-secret: resource-server
-key:
-  location: classpath:key.pub
+key: classpath:key.pub
 
 
