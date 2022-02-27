@@ -15,6 +15,8 @@ public class CustomerDto {
 
     private String password;
 
+    private String phoneNumber;
+
     private boolean enabled;
 
     private boolean accountNonLocked;
@@ -85,6 +87,14 @@ public class CustomerDto {
 
     public boolean isCredentialNonExpired() {
         return credentialNonExpired;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void setCredentialNonExpired(boolean credentialNonExpired) {

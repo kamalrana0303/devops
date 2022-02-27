@@ -1,22 +1,21 @@
 package com.devops.developers.customer.service;
 
-import com.devops.developers.customer.dao.RoleDao;
 import com.devops.developers.customer.dao.UserDao;
 import com.devops.developers.customer.entity.Customer;
 import com.devops.developers.customer.entity.Role;
+import com.devops.developers.customer.customerdetail.CustomerDetailImpl;
 import com.devops.developers.dto.CustomerDto;
 import com.devops.developers.dto.RoleDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import  org.modelmapper.ModelMapper;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 @Service
 public class CustomerDetailsServiceImpl implements UserDetailsService, CustomerService {
@@ -39,17 +38,16 @@ public class CustomerDetailsServiceImpl implements UserDetailsService, CustomerS
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Customer customer=userDao.findCustomerByUsername(username);
-        if(customer==null){
-            throw new BadCredentialsException("bad credentials");
-        }
-        return customer;
+        Optional<Customer> customer=userDao.findCustomerByUsername(username);
+        CustomerDetailImpl customerDetail=customer.map(c -> { return new CustomerDetailImpl(c);})
+                .orElseThrow(()-> new BadCredentialsException("bad credentials"));
+        return  customerDetail;
     }
 
     @Override
     public CustomerDto getCustomerByName(String name) {
-        Customer customer=this.userDao.findCustomerByUsername(name);
-        if(customer!=null){
+        Optional<Customer> customer=this.userDao.findCustomerByUsername(name);
+        if(!customer.isEmpty()){
             return mapper.map(customer, CustomerDto.class);
         }
         return null;

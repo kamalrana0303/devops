@@ -1,8 +1,12 @@
 package com.devops.developers.config;
 
+import com.devops.developers.config.security.filter.UserNamePasswordAuthFilter;
+import com.devops.developers.config.security.provider.OtpAuthenticationProvider;
+import com.devops.developers.config.security.provider.UsernamePasswordAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,16 +17,21 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class UserManagementConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
+    private  final UsernamePasswordAuthProvider usernamePasswordAuthProvider;
+    private final OtpAuthenticationProvider otpAuthenticationProvider;
 
-    public UserManagementConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    public UserManagementConfig(UserDetailsService userDetailsService, UsernamePasswordAuthProvider usernamePasswordAuthProvider, OtpAuthenticationProvider otpAuthenticationProvider, PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
+        this.usernamePasswordAuthProvider= usernamePasswordAuthProvider;
+        this.otpAuthenticationProvider= otpAuthenticationProvider;
     }
 
 
@@ -34,7 +43,11 @@ public class UserManagementConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder)throws Exception{
-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        authenticationManagerBuilder
+                .authenticationProvider(otpAuthenticationProvider)
+                        .authenticationProvider(usernamePasswordAuthProvider)
+                                .userDetailsService(userDetailsService)
+                                        .passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -42,8 +55,10 @@ public class UserManagementConfig extends WebSecurityConfigurerAdapter {
         http.formLogin();
 
         http
+                .addFilterAt(new UserNamePasswordAuthFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+                .csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/customer/sign-up/**").permitAll()
+                .mvcMatchers(HttpMethod.POST,"/otp/request").permitAll()
                 .anyRequest()
                 .authenticated();
     }

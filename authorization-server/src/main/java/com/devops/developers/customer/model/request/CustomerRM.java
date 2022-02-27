@@ -1,14 +1,29 @@
 package com.devops.developers.customer.model.request;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
 
 public class CustomerRM {
 
+    @NotNull
     private String email;
-
+    @NotNull
+    private String phoneNumber;
+    @NotNull
     private String username;
 
+    @NotNull
     private String password;
+
+    private String otpNo;
+
+    public String getOtpNo() {
+        return otpNo;
+    }
+
+    public void setOtpNo(String otpNo) {
+        this.otpNo = otpNo;
+    }
 
     public String getEmail() {
         return email;
@@ -32,5 +47,13 @@ public class CustomerRM {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

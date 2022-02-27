@@ -1,5 +1,6 @@
 package com.devops.developers.config;
 
+import com.devops.developers.config.security.filter.UserNamePasswordAuthFilter;
 import com.devops.developers.customer.model.request.CustomerRM;
 import com.devops.developers.customer.service.CustomerService;
 import com.devops.developers.dto.CustomerDto;
@@ -22,6 +23,7 @@ public class WebConfig {
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return mapper;
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){

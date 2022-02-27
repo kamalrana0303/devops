@@ -17,3 +17,9 @@ app:
       databaseName: oauth
       driver-class-name: org.postgresql.Driver
       jdbc-url: jdbc:postgresql://${app.datasource.postgres.host}:${app.datasource.postgres.port}/${app.datasource.postgres.databaseName}
+
+security:
+  oauth2:
+    client:
+      client-id: client1
+      client-secret: secret1

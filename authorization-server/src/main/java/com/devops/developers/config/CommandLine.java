@@ -52,25 +52,27 @@ public class CommandLine {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-                RoleName[] roles = RoleName.values();
-                for(RoleName role: roles){
-                    roleService.createRole(role);
-                }
+//                RoleName[] roles = RoleName.values();
+//                for(RoleName role: roles){
+//                    roleService.createRole(role);
+//                }
 
-                CustomerDto isExistAlready=customerService.getCustomerByName("system");
-                if(isExistAlready==null){
-                    CustomerDto customerDto= new CustomerDto();
-                    customerDto.setEmail("system@system.in");
-                    customerDto.setUsername("system");
-                    customerDto.setPassword("system");
-                    customerDto.setRoles(Collections.singleton(new RoleDto(RoleName.ADMIN)));
-                    customerService.createCustomer(customerDto);
-                }
+//                CustomerDto isExistAlready=customerService.getCustomerByName("system");
+//                if(isExistAlready==null){
+//                    CustomerDto customerDto= new CustomerDto();
+//                    customerDto.setEmail("system@system.in");
+//                    customerDto.setUsername("system");
+//                    customerDto.setPassword("system");
+//                    customerDto.setPhoneNumber("8376857964");
+//                    customerDto.setRoles(Collections.singleton(new RoleDto(RoleName.ADMIN)));
+//                    customerService.createCustomer(customerDto);
+//                }
 
                for(Map.Entry<String, ClientAttributes> cl: clientConfiguration.getClients().entrySet()){
                    String clientName= cl.getKey();
                    ClientDetailsRM clientDetailsRM= new ClientDetailsRM();
                    clientDetailsRM.setClientId(clientName);
+
                    clientDetailsRM.setClientSecret(cl.getValue().getClientSecret());
                    clientDetailsRM.setcAuthorities(Arrays.asList(cl.getValue().getAuthorities()).stream().map(x->new CAuthoritiesRM(x)).collect(Collectors.toSet()));
                    clientDetailsRM.setScopes(Arrays.asList(cl.getValue().getScopes()).stream().map(x->new ScopeRM(x)).collect(Collectors.toSet()));

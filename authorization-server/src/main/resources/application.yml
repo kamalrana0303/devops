@@ -36,3 +36,7 @@ authorization-server:
       scopes: read, write
       grant-types: authorization_code
       authorities: read, write
+
+#logging:
+#  level:
+#    root: debug
