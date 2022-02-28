@@ -56,6 +56,7 @@ public class CustomerDetailsServiceImpl implements UserDetailsService, CustomerS
     @Override
     public CustomerDto createCustomer(CustomerDto customerDto){
         Customer customer=mapper.map(customerDto,Customer.class);
+        customer.setEnabled(true);
         customer.setRoles(new HashSet<>());
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
 

@@ -31,6 +31,7 @@ public class OtpServiceImpl implements OtpService {
         Otp savedOtp=otpRepository.save(mapper.map(otpDto, Otp.class));
         return mapper.map(savedOtp,OtpDto.class);
     }
+    
 
     @Override
     public Otp verifyOtp(String otpNo, String phoneNumber){

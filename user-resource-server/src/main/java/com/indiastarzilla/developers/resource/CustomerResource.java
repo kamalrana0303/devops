@@ -19,8 +19,7 @@ public class CustomerResource {
     @Autowired
     RestTemplate restTemplate;
 
-
-    @PostMapping("add-user")
+    @PostMapping("sign-up")
     public ResponseEntity<CustomerRest> hello(@RequestBody CustomerRM customerRM , @Value("${application.authorization-server.baseurl}") String baseUrl){
         URI baseurl = URI.create(baseUrl);
         UriComponentsBuilder uri= UriComponentsBuilder.fromUri(baseurl).path("customer/sign-up");
@@ -28,7 +27,5 @@ public class CustomerResource {
         ResponseEntity<CustomerRest> response=this.restTemplate.exchange(uri.toUriString(),HttpMethod.POST,entity,CustomerRest.class);
         return response;
     }
-
-
 
 }

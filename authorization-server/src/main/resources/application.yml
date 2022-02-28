@@ -1,12 +1,15 @@
 server:
   port: 8080
+management:
+  server:
+    port: 9090
 
 spring:
   jpa:
     hibernate.ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
-    show-sql: true
+    show-sql: false
     defer-datasource-initialization: false
 
 app:

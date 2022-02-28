@@ -3,6 +3,9 @@ package com.devops.developers.config;
 import com.devops.developers.config.security.filter.UserNamePasswordAuthFilter;
 import com.devops.developers.config.security.provider.OtpAuthenticationProvider;
 import com.devops.developers.config.security.provider.UsernamePasswordAuthProvider;
+import com.devops.developers.customer.service.CustomerDetailsServiceImpl;
+import com.devops.developers.customer.service.CustomerService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,12 +29,15 @@ public class UserManagementConfig extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
     private  final UsernamePasswordAuthProvider usernamePasswordAuthProvider;
     private final OtpAuthenticationProvider otpAuthenticationProvider;
-
-    public UserManagementConfig(UserDetailsService userDetailsService, UsernamePasswordAuthProvider usernamePasswordAuthProvider, OtpAuthenticationProvider otpAuthenticationProvider, PasswordEncoder passwordEncoder) {
+    private  final CustomerService customerService;
+    private final ModelMapper mapper;
+    public UserManagementConfig(UserDetailsService userDetailsService, CustomerService customerService, UsernamePasswordAuthProvider usernamePasswordAuthProvider, OtpAuthenticationProvider otpAuthenticationProvider, PasswordEncoder passwordEncoder, ModelMapper mapper) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
         this.usernamePasswordAuthProvider= usernamePasswordAuthProvider;
         this.otpAuthenticationProvider= otpAuthenticationProvider;
+        this.customerService= customerService;
+        this.mapper=mapper;
     }
 
 
@@ -55,7 +61,7 @@ public class UserManagementConfig extends WebSecurityConfigurerAdapter {
         http.formLogin();
 
         http
-                .addFilterAt(new UserNamePasswordAuthFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(new UserNamePasswordAuthFilter(authenticationManager(), customerService,mapper), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .mvcMatchers(HttpMethod.POST,"/otp/request").permitAll()
