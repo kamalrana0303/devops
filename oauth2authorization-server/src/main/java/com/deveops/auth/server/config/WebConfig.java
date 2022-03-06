@@ -26,48 +26,22 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import javax.sql.DataSource;
 import java.util.UUID;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class WebConfig {
     @Bean
     @Primary
     @ConfigurationProperties("app.datasource.postgres")
-    DataSource dataSource(){
-        DataSource dataSource= DataSourceBuilder.create().type(HikariDataSource.class).build();
-        return  dataSource;
+    DataSource dataSource() {
+        return DataSourceBuilder.create().type(HikariDataSource.class).build();
     }
 
-    @Bean
-    public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate){
-        RegisteredClient registeredClient= RegisteredClient.withId(
-                UUID.randomUUID().toString()
-        ).clientId("client1")
-                .clientAuthenticationMethod( new ClientAuthenticationMethod("basic"))
-                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
-                .scope("read")
-                .scope("write")
-                .build();
-        JdbcRegisteredClientRepository registeredClientRepository= new JdbcRegisteredClientRepository(jdbcTemplate);
-        return registeredClientRepository;
-    }
 
     @Bean
-    public OAuth2AuthorizationService auth2AuthorizationService(JdbcTemplate jdbcTemplate, RegisteredClientRepository registeredClientRepository){
-        return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository);
-    }
-
-    @Bean
-    public OAuth2AuthorizationConsentService auth2AuthorizationConsentService(JdbcTemplate jdbcTemplate,
-                                                                              RegisteredClientRepository registeredClientRepository){
-        return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
-    }
-
-    @Bean
-    public JWKSource<SecurityContext> jwkSource() throws Exception{
-        RSAKey rsaKey= Jwks.generateRsa();
-        JWKSet jwkSet= new JWKSet(rsaKey);
+    public JWKSource<SecurityContext> jwkSource() throws Exception {
+        RSAKey rsaKey = Jwks.generateRsa();
+        JWKSet jwkSet = new JWKSet(rsaKey);
         return ((jwkSelector, securityContext) -> jwkSelector.select(jwkSet));
     }
-
 
 
 }

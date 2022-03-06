@@ -1,17 +1,15 @@
 package com.devops.developers.client.model.response;
 
-import com.devops.developers.client.model.request.*;
-
 import java.util.Set;
 
 public class ClientDetailRest {
     private String clientId;
-    private boolean secretRequired=true;
+    private boolean secretRequired = true;
     private String clientSecret;
-    private boolean scoped=true;
+    private boolean scoped = true;
     private Integer accessTokenValiditySeconds;
     private Integer refreshTokenValiditySeconds;
-    private boolean autoApprove=false;
+    private boolean autoApprove = false;
     private Set<ResourceRest> resourceIds;
     private Set<ScopeRest> scopes;
     private Set<GrantTypeRest> authorizedGrantTypes;

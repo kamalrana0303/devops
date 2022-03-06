@@ -1,7 +1,7 @@
 package com.indiastarzilla.developers.ui.model.response;
 
 
-import com.indiastarzilla.developers.ui.RoleName;
+import com.indiastarzilla.developers.ui.enums.RoleName;
 
 import java.util.Set;
 

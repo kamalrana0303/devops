@@ -3,7 +3,8 @@ package com.devops.developers.client.model.request;
 public class ScopeRM {
     private String name;
 
-    public ScopeRM(){}
+    public ScopeRM() {
+    }
 
     public ScopeRM(String name) {
         this.name = name;

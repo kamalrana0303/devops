@@ -1,7 +1,5 @@
 package com.devops.developers.dto;
 
-import com.devops.developers.customer.entity.Role;
-import java.util.List;
 import java.util.Set;
 
 
@@ -17,6 +15,8 @@ public class CustomerDto {
 
     private String phoneNumber;
 
+    private String userId;
+
     private boolean enabled;
 
     private boolean accountNonLocked;
@@ -27,7 +27,8 @@ public class CustomerDto {
 
     private Set<RoleDto> roles;
 
-    public CustomerDto(){}
+    public CustomerDto() {
+    }
 
     public Long getId() {
         return id;
@@ -37,24 +38,52 @@ public class CustomerDto {
         this.id = id;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public boolean isAccountNonLocked() {
         return accountNonLocked;
     }
 
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
     public boolean isAccountNonExpired() {
         return accountNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
     }
 
     public String getEmail() {
@@ -65,28 +94,12 @@ public class CustomerDto {
         this.email = email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
-
     public boolean isCredentialNonExpired() {
         return credentialNonExpired;
+    }
+
+    public void setCredentialNonExpired(boolean credentialNonExpired) {
+        this.credentialNonExpired = credentialNonExpired;
     }
 
     public String getPhoneNumber() {
@@ -95,10 +108,6 @@ public class CustomerDto {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public void setCredentialNonExpired(boolean credentialNonExpired) {
-        this.credentialNonExpired = credentialNonExpired;
     }
 
     public Set<RoleDto> getRoles() {

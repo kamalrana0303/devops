@@ -18,17 +18,13 @@ public class GrantTypeServiceImpl implements GrantTypeService {
     ModelMapper mapper;
 
     @Override
-    public Optional<GrantTypeDto> findGrantTypeByName(String name){
-        return this.grantTypeRepository.findGrantTypeByName(name).map(x-> mapper.map(x, GrantTypeDto.class));
+    public Optional<GrantType> findGrantTypeByName(String name) {
+        return Optional.ofNullable(this.grantTypeRepository.findGrantTypeByName(name));
     }
 
     @Override
-    public Optional<GrantTypeDto> save(GrantTypeDto value){
-        Optional<GrantTypeDto> grantType=findGrantTypeByName(value.getName());
-        if(grantType.isEmpty()){
-            grantType=Optional.of(this.grantTypeRepository.save(mapper.map(value, GrantType.class)))
-                    .map(x-> mapper.map(x,GrantTypeDto.class));
-        }
-        return grantType;
+    public Optional<GrantType> save(GrantTypeDto value) {
+        return Optional.ofNullable(this.grantTypeRepository.save(mapper.map(value, GrantType.class)));
+
     }
 }

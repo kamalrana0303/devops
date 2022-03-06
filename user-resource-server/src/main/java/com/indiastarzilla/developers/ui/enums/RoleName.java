@@ -1,4 +1,4 @@
-package com.indiastarzilla.developers.ui;
+package com.indiastarzilla.developers.ui.enums;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,8 +9,8 @@ public enum RoleName {
 
     private List<PermissionName> permissions;
 
-    RoleName(List<PermissionName> permissions){
-        this.permissions=permissions;
+    RoleName(List<PermissionName> permissions) {
+        this.permissions = permissions;
     }
 
     public List<PermissionName> getPermissions() {

@@ -10,7 +10,7 @@ import java.util.Date;
 public class Otp extends BaseId {
     @Column(unique = true, nullable = false)
     private String optId;
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String otpNo;
     @Column(nullable = false)
     private boolean isVerified;

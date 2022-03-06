@@ -1,4 +1,4 @@
-package com.devops.developers.config;
+package com.devops.developers.config.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -12,7 +12,7 @@ public class DatasourceConfig {
     @Bean
     @Primary
     @ConfigurationProperties("app.datasource.postgres")
-    HikariDataSource dataSource(){
+    HikariDataSource dataSource() {
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)
                 .build();

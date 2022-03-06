@@ -6,7 +6,33 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:8080/.well-known/jwks.json
-
+      client:
+        registeration:
+          login-client:
+            provider: local-authz
+            client-id: client2
+            client-secret: secret2
+            client-authentication-method: basic
+            authorization-grant-type: password
+            scope: write
+            #     redirect-uri-template: "{baseUrl}/login/oauth2/code/{registerationId}"
+            client-name: login client
+          provider:
+            local-authz:
+              authorization-uri: http://localhost:8080/oauth/authorize
+              token-uri: http://localhost:8080/oauth/token
+              user-info-uri: http://localhost:8080/resources/userinfo
+              user-name-attribute: name
 application:
   authorization-server:
     baseurl: http://localhost:8080
+
+app:
+  datasource:
+    postgres:
+      host: localhost
+      port: 5432
+      databaseName: auth
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://${app.datasource.postgres.host}:${app.datasource.postgres.port}/${app.datasource.postgres.databaseName}
+      password: "@##$..234"

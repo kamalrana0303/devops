@@ -14,21 +14,18 @@ import java.util.Optional;
 public class CAuthoritiesServiceImpl implements CAuthoritiesService {
     @Autowired
     CAuthoritiesRepository cAuthoritiesRepository;
+
     @Autowired
     ModelMapper mapper;
 
     @Override
-    public Optional<CAuthoritiesDto> findCAuthoritiesByName(String name){
-        return this.cAuthoritiesRepository.findCAuthoritiesByName(name).map(x->mapper.map(x, CAuthoritiesDto.class));
+    public Optional<CAuthorities> findCAuthoritiesByName(String name) {
+        return Optional.ofNullable(this.cAuthoritiesRepository.findCAuthoritiesByName(name));
     }
 
     @Override
-    public Optional<CAuthoritiesDto> save(CAuthoritiesDto value){
-        Optional<CAuthoritiesDto> cAuthoritiesDto=findCAuthoritiesByName(value.getName());
-        if(cAuthoritiesDto.isEmpty()){
-            cAuthoritiesDto=Optional.of(cAuthoritiesRepository.save(mapper.map(value, CAuthorities.class)))
-                    .map(x->mapper.map(x,CAuthoritiesDto.class));
-        }
-        return cAuthoritiesDto;
+    public Optional<CAuthorities> save(CAuthoritiesDto value) {
+        return Optional.ofNullable(this.cAuthoritiesRepository.save(mapper.map(value, CAuthorities.class)));
     }
+
 }

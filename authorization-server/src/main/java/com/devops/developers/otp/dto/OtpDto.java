@@ -1,6 +1,5 @@
 package com.devops.developers.otp.dto;
 
-import javax.persistence.Column;
 import java.util.Date;
 
 public class OtpDto {

@@ -1,23 +1,23 @@
 package com.devops.developers.client.dto;
 
-import com.devops.developers.client.entity.*;
-
+import java.util.HashSet;
 import java.util.Set;
 
 public class ClientDto {
     private Long id;
     private String clientId;
-    private boolean secretRequired=true;
+    private boolean secretRequired = true;
     private String clientSecret;
-    private boolean scoped=true;
+    private boolean scoped = true;
     private Integer accessTokenValiditySeconds;
     private Integer refreshTokenValiditySeconds;
-    private boolean autoApprove=false;
-    private Set<ResourceDto> resourceIds;
+    private boolean autoApprove = false;
+    private Set<ResourceDto> resourceIds = new HashSet<>();
     private Set<ScopeDto> scopes;
     private Set<GrantTypeDto> authorizedGrantTypes;
     private Set<RedirectUriDto> registeredRedirectUri;
     private Set<CAuthoritiesDto> cAuthorities;
+
 
     public Long getId() {
         return id;

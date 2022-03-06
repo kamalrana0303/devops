@@ -12,10 +12,10 @@ import java.util.Set;
 
 public class ClientDetailsImpl implements ClientDetails {
 
-    private  final Client client;
+    private final Client client;
 
-    public ClientDetailsImpl(Client client){
-        this.client=client;
+    public ClientDetailsImpl(Client client) {
+        this.client = client;
     }
 
     @Override
@@ -25,8 +25,8 @@ public class ClientDetailsImpl implements ClientDetails {
 
     @Override
     public Set<String> getResourceIds() {
-        Set<String> values= new HashSet<>();
-        this.client.getResourceIds().forEach(resourceId->{
+        Set<String> values = new HashSet<>();
+        this.client.getResourceIds().forEach(resourceId -> {
             values.add(resourceId.getName());
         });
         return values;
@@ -49,14 +49,14 @@ public class ClientDetailsImpl implements ClientDetails {
 
     @Override
     public Set<String> getScope() {
-        Set<String> values= new HashSet<>();
+        Set<String> values = new HashSet<>();
         this.client.getScopes().forEach(scope -> values.add(scope.getName()));
         return values;
     }
 
     @Override
     public Set<String> getAuthorizedGrantTypes() {
-        Set<String> values= new HashSet<>();
+        Set<String> values = new HashSet<>();
         this.client.getAuthorizedGrantTypes().forEach(grantTypes -> values.add(grantTypes.getName()));
         return values;
     }
@@ -64,15 +64,15 @@ public class ClientDetailsImpl implements ClientDetails {
     @Override
     public Set<String> getRegisteredRedirectUri() {
         //Set<String> values= new HashSet<>();
-       // this.client.getRegisteredRedirectUri().forEach(registeredRedirectUri -> values.add(registeredRedirectUri.getName()));
-       // return values;
+        // this.client.getRegisteredRedirectUri().forEach(registeredRedirectUri -> values.add(registeredRedirectUri.getName()));
+        // return values;
         return Set.of("http://localhost:9090");
     }
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> values= new HashSet<>();
-        this.client.getcAuthorities().forEach(a->{
+        Set<GrantedAuthority> values = new HashSet<>();
+        this.client.getcAuthorities().forEach(a -> {
             values.add(new SimpleGrantedAuthority(a.getName()));
         });
         return values;

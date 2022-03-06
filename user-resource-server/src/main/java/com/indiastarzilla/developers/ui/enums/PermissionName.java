@@ -1,4 +1,4 @@
-package com.indiastarzilla.developers.ui;
+package com.indiastarzilla.developers.ui.enums;
 
 public enum PermissionName {
     READ,

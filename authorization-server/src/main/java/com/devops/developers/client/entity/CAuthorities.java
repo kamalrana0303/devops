@@ -2,8 +2,8 @@ package com.devops.developers.client.entity;
 
 import com.devops.developers.customer.entity.BaseId;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Entity
 public class CAuthorities extends BaseId {

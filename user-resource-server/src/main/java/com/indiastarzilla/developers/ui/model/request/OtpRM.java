@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OtpRM {
 
-    public OtpRM(){}
+    public OtpRM() {
+    }
 
     private String otpNo;
 
@@ -33,6 +34,7 @@ public class OtpRM {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
     @JsonProperty("phoneNumber")
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;

@@ -4,6 +4,8 @@ management:
   server:
     port: 9090
 
+
+
 spring:
   jpa:
     hibernate.ddl-auto: update
@@ -11,6 +13,12 @@ spring:
     generate-ddl: true
     show-sql: false
     defer-datasource-initialization: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/.well-known/jwks.json
+
 
 app:
   datasource:
@@ -40,6 +48,6 @@ authorization-server:
       grant-types: authorization_code
       authorities: read, write
 
-#logging:
-#  level:
-#    root: debug
+logging:
+  level:
+    root: debug

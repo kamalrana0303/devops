@@ -15,16 +15,16 @@ public class CustomerDetailImpl implements UserDetails {
 
     private final Customer customer;
 
-    public CustomerDetailImpl(Customer customer){
-        this.customer=customer;
+    public CustomerDetailImpl(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities= new HashSet<>();
-        for(Role role: customer.getRoles()){
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        for (Role role : customer.getRoles()) {
             authorities.add(new SimpleGrantedAuthority(role.getName().name()));
-            for(Permission permission: role.getPermissions()){
+            for (Permission permission : role.getPermissions()) {
                 authorities.add(new SimpleGrantedAuthority(permission.getName().name()));
             }
         }

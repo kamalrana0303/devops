@@ -21,17 +21,17 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String username= authentication.getName();
-        String password=(String) authentication.getCredentials();
-        UserDetails user= customerDetailsService.loadUserByUsername(username);
-        if(passwordEncoder.matches(password, user.getPassword())){
-            return new UsernamePasswordAuthentication(username,password,user.getAuthorities());
+        String username = authentication.getName();
+        String password = (String) authentication.getCredentials();
+        UserDetails user = customerDetailsService.loadUserByUsername(username);
+        if (passwordEncoder.matches(password, user.getPassword())) {
+            return new UsernamePasswordAuthentication(username, password, user.getAuthorities());
         }
         throw new BadCredentialsException("bad credentials");
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return UsernamePasswordAuthentication.class.equals(authentication) ;
+        return UsernamePasswordAuthentication.class.equals(authentication);
     }
 }

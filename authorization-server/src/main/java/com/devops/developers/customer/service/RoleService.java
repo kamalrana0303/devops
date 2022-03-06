@@ -1,6 +1,5 @@
 package com.devops.developers.customer.service;
 
-import com.devops.developers.customer.entity.Role;
 import com.devops.developers.customer.entity.RoleName;
 import com.devops.developers.dto.RoleDto;
 

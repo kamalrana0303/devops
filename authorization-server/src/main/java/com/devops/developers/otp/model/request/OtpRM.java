@@ -2,19 +2,18 @@ package com.devops.developers.otp.model.request;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 
 public class OtpRM {
 
-    public OtpRM(){}
-
     private String otpNo;
-
     private boolean isVerified;
     @JsonProperty("phoneNumber")
     @NotNull(message = "can't be null")
     private String phoneNumber;
+
+    public OtpRM() {
+    }
 
     public String getOtpNo() {
         return otpNo;
@@ -36,6 +35,7 @@ public class OtpRM {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
     @JsonProperty("phoneNumber")
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;

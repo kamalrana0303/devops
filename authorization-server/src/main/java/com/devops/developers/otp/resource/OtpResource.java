@@ -21,9 +21,9 @@ public class OtpResource {
     OtpService otpService;
 
     @PostMapping("request")
-    public ResponseEntity<?> createOtp(@RequestBody OtpRM otpRM){
-        OtpDto otpDto=mapper.map(otpRM, OtpDto.class);
-        OtpDto otpDto1=this.otpService.createOtp(otpDto);
+    public ResponseEntity<?> createOtp(@RequestBody OtpRM otpRM) {
+        OtpDto otpDto = mapper.map(otpRM, OtpDto.class);
+        OtpDto otpDto1 = this.otpService.createOtp(otpDto);
         return ResponseEntity.ok(otpDto1);
     }
 }

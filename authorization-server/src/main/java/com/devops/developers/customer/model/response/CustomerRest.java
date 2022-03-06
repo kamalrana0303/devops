@@ -1,9 +1,5 @@
 package com.devops.developers.customer.model.response;
 
-import com.devops.developers.customer.model.response.RoleRest;
-
-
-
 import java.util.Set;
 
 public class CustomerRest {
@@ -15,7 +11,8 @@ public class CustomerRest {
 
     private Set<RoleRest> roles;
 
-    public CustomerRest(){}
+    public CustomerRest() {
+    }
 
     public String getEmail() {
         return email;

@@ -10,7 +10,7 @@ import java.time.Duration;
 @Configuration
 public class WebConfig {
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder){
+    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         RestTemplate rest = restTemplateBuilder
                 .setConnectTimeout(Duration.ofSeconds(60))
                 .setReadTimeout(Duration.ofSeconds(60))

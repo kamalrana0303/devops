@@ -12,7 +12,8 @@ public class CustomerRest {
 
     private Set<RoleRest> roles;
 
-    public CustomerRest(){}
+    public CustomerRest() {
+    }
 
     public String getEmail() {
         return email;

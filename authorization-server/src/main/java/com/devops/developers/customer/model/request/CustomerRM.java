@@ -1,6 +1,5 @@
 package com.devops.developers.customer.model.request;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 
 public class CustomerRM {

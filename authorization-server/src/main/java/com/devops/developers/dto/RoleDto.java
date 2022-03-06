@@ -1,10 +1,7 @@
 package com.devops.developers.dto;
 
-import com.devops.developers.customer.entity.Permission;
 import com.devops.developers.customer.entity.RoleName;
 
-import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 public class RoleDto {
@@ -15,8 +12,13 @@ public class RoleDto {
 
     private Set<PermissionDto> permissions;
 
-    public RoleDto(){}
+    public RoleDto() {
+    }
 
+
+    public RoleDto(RoleName roleName) {
+        this.name = roleName;
+    }
 
     public Long getId() {
         return id;
@@ -24,10 +26,6 @@ public class RoleDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public RoleDto(RoleName roleName){
-        this.name=roleName;
     }
 
     public RoleName getName() {

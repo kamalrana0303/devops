@@ -6,6 +6,8 @@ import com.devops.developers.client.entity.Scope;
 import java.util.Optional;
 
 public interface ScopeService {
-    public Optional<ScopeDto> findScopeByName(String name);
-    public Optional<ScopeDto> save(ScopeDto scopeDto);
+    Optional<Scope> findScopeByName(String name);
+
+    Optional<Scope> save(ScopeDto scopeDto);
+
 }

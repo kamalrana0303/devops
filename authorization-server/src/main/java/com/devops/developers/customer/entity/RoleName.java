@@ -9,8 +9,8 @@ public enum RoleName {
 
     private List<PermissionName> permissions;
 
-    RoleName(List<PermissionName> permissions){
-        this.permissions=permissions;
+    RoleName(List<PermissionName> permissions) {
+        this.permissions = permissions;
     }
 
     public List<PermissionName> getPermissions() {

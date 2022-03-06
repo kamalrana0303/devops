@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
@@ -29,10 +30,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     String jwkSetUri;
 
     @Override
-    protected  void configure(HttpSecurity http) throws  Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.oauth2ResourceServer(
-                c->{
-                    c.jwt(t->{
+                c -> {
+                    c.jwt(t -> {
                         t.decoder(jwtDecoder()).jwkSetUri(jwkSetUri);
                     });
                 }
@@ -41,25 +42,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .mvcMatchers(HttpMethod.POST,"customer/add-user").permitAll()
+                .mvcMatchers(HttpMethod.POST, "customer/add-user").permitAll()
                 .mvcMatchers("/customer/**").hasAuthority("read")
                 .anyRequest().authenticated();
     }
 
-    public JwtAuthenticationConverter jwtAuthenticationConverter(){
-        JwtAuthenticationConverter conv= new JwtAuthenticationConverter();
-        conv.setJwtGrantedAuthoritiesConverter(jwt->{
-            JSONArray a= (JSONArray) jwt.getClaims().get("authorities");
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtAuthenticationConverter conv = new JwtAuthenticationConverter();
+        conv.setJwtGrantedAuthoritiesConverter(jwt -> {
+            JSONArray a = (JSONArray) jwt.getClaims().get("authorities");
             return a.stream()
                     .map(String::valueOf)
                     .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toList());
         });
-        return  conv;
+        return conv;
     }
 
     @Bean
-    public JwtDecoder jwtDecoder(){
+    public JwtDecoder jwtDecoder() {
 
         return NimbusJwtDecoder.withJwkSetUri(jwkSetUri).restOperations(rest).build();
     }

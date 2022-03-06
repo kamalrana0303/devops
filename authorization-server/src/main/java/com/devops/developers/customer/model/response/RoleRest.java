@@ -1,7 +1,6 @@
 package com.devops.developers.customer.model.response;
 
 import com.devops.developers.customer.entity.RoleName;
-import com.devops.developers.dto.PermissionDto;
 
 import java.util.Set;
 

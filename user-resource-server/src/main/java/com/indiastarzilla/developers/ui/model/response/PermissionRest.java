@@ -1,6 +1,6 @@
 package com.indiastarzilla.developers.ui.model.response;
 
-import com.indiastarzilla.developers.ui.PermissionName;
+import com.indiastarzilla.developers.ui.enums.PermissionName;
 
 public class PermissionRest {
     private PermissionName name;

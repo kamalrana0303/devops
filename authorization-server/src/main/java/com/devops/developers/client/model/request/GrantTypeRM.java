@@ -3,7 +3,8 @@ package com.devops.developers.client.model.request;
 public class GrantTypeRM {
     private String name;
 
-    public GrantTypeRM(){}
+    public GrantTypeRM() {
+    }
 
     public GrantTypeRM(String name) {
         this.name = name;

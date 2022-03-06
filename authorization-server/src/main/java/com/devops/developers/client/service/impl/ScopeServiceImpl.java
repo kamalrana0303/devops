@@ -1,6 +1,5 @@
 package com.devops.developers.client.service.impl;
 
-import com.devops.developers.client.dto.GrantTypeDto;
 import com.devops.developers.client.dto.ScopeDto;
 import com.devops.developers.client.entity.Scope;
 import com.devops.developers.client.repository.ScopeRepository;
@@ -19,17 +18,12 @@ public class ScopeServiceImpl implements ScopeService {
     ModelMapper mapper;
 
     @Override
-    public Optional<ScopeDto> findScopeByName(String name){
-        return this.scopeRepository.findScopeByName(name).map(x->mapper.map(x, ScopeDto.class));
+    public Optional<Scope> findScopeByName(String name) {
+        return Optional.ofNullable(this.scopeRepository.findScopeByName(name));
     }
 
     @Override
-    public Optional<ScopeDto> save(ScopeDto value){
-       Optional<ScopeDto> scopeDto=findScopeByName(value.getName());
-       if(scopeDto.isEmpty()){
-           scopeDto=Optional.of(this.scopeRepository.save(mapper.map(value, Scope.class)))
-                   .map(x-> mapper.map(x,ScopeDto.class));
-       }
-       return scopeDto;
+    public Optional<Scope> save(ScopeDto value) {
+        return Optional.ofNullable(this.scopeRepository.save(mapper.map(value, Scope.class)));
     }
 }

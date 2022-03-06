@@ -10,7 +10,8 @@ public class ErrorDetails {
     String message;
     List<String> errors;
 
-    public ErrorDetails(){}
+    public ErrorDetails() {
+    }
 
     public ErrorDetails(HttpStatus httpStatus, String message, List<String> errors) {
         this.httpStatus = httpStatus;

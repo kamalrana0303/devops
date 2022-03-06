@@ -7,30 +7,30 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Client extends BaseId  {
+public class Client extends BaseId {
     private String clientId;
-    private boolean secretRequired=true;
+    private boolean secretRequired = true;
     private String clientSecret;
-    private boolean scoped=true;
+    private boolean scoped = true;
     private Integer accessTokenValiditySeconds;
     private Integer refreshTokenValiditySeconds;
-    private boolean autoApprove=false;
+    private boolean autoApprove = false;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
+    private Set<RedirectUri> registeredRedirectUri = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "clients_resources", joinColumns = {@JoinColumn(name = "clients", referencedColumnName = "id") }, inverseJoinColumns = {@JoinColumn(name="resourceIds", referencedColumnName = "id")})
+    @JoinTable(name = "clients_resources", joinColumns = {@JoinColumn(name = "clients", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "resourceIds", referencedColumnName = "id")})
     private Set<Resource> resourceIds;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "clients_scopes", joinColumns = {@JoinColumn(name="clients", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name="scopes", referencedColumnName = "id")})
+    @JoinTable(name = "clients_scopes", joinColumns = {@JoinColumn(name = "clients", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "scopes", referencedColumnName = "id")})
     private Set<Scope> scopes;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "clients_grant_types", joinColumns = {@JoinColumn(name = "clients", referencedColumnName = "id") }, inverseJoinColumns = {@JoinColumn(name="authorizedGrantTypes", referencedColumnName = "id")})
-    private Set<GrantType> authorizedGrantTypes= new HashSet<>();
+    @JoinTable(name = "clients_grant_types", joinColumns = {@JoinColumn(name = "clients", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "authorizedGrantTypes", referencedColumnName = "id")})
+    private Set<GrantType> authorizedGrantTypes = new HashSet<>();
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "clients_registered_redirect_uris", joinColumns = {@JoinColumn(name="clients", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name="registeredRedirectUri", referencedColumnName = "id")})
-    private Set<RedirectUri> registeredRedirectUri= new HashSet<>();
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "client_authorities", joinColumns = {@JoinColumn(name = "clients", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name="cAuthorities", referencedColumnName = "id")})
-    private Set<CAuthorities> cAuthorities= new HashSet<>();
+    @JoinTable(name = "client_authorities", joinColumns = {@JoinColumn(name = "clients", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "cAuthorities", referencedColumnName = "id")})
+    private Set<CAuthorities> cAuthorities = new HashSet<>();
 
     public String getClientId() {
         return clientId;
@@ -126,5 +126,15 @@ public class Client extends BaseId  {
 
     public void setcAuthorities(Set<CAuthorities> cAuthorities) {
         this.cAuthorities = cAuthorities;
+    }
+
+    public void addRedirectUri(RedirectUri redirectUri) {
+        redirectUri.setClient(this);
+        this.registeredRedirectUri.add(redirectUri);
+    }
+
+    public void removeRedirectUri(RedirectUri redirectUri) {
+        redirectUri.setClient(null);
+        this.registeredRedirectUri.remove(redirectUri);
     }
 }

@@ -8,22 +8,22 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PermissionServiceImpl implements  PermissionService{
+public class PermissionServiceImpl implements PermissionService {
     private final PermissionDao permissionDao;
     private final ModelMapper mapper;
 
     public PermissionServiceImpl(PermissionDao permissionDao, ModelMapper mapper) {
         this.permissionDao = permissionDao;
-        this.mapper= mapper;
+        this.mapper = mapper;
     }
 
     @Override
-    public PermissionDto  createPermission(PermissionName name){
-        Permission permission=this.permissionDao.findPermissionByName(name);
-        if(permission==null){
-            permission= new Permission(name);
+    public PermissionDto createPermission(PermissionName name) {
+        Permission permission = this.permissionDao.findPermissionByName(name);
+        if (permission == null) {
+            permission = new Permission(name);
             this.permissionDao.save(permission);
         }
-       return mapper.map(permission, PermissionDto.class);
+        return mapper.map(permission, PermissionDto.class);
     }
 }

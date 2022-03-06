@@ -1,12 +1,7 @@
 package com.devops.developers.customer.entity;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,33 +9,43 @@ import java.util.Set;
 public class Customer extends BaseId implements Serializable {
     @Column(unique = true, nullable = false)
     private String email;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String phoneNumber;
     @Column(unique = true, nullable = false)
     private String username;
+    @Column(unique = true, nullable = false)
+    private String userId;
     @Column(nullable = false)
     private String password;
     private boolean enabled;
-    @Column(name="account_locked")
+    @Column(name = "account_locked")
     private boolean accountNonLocked;
-    @Column(name="account_expired")
+    @Column(name = "account_expired")
     private boolean accountNonExpired;
-    @Column(name="credential_expired")
+    @Column(name = "credential_expired")
     private boolean credentialNonExpired;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="role_customer", joinColumns = {
+    @JoinTable(name = "role_customer", joinColumns = {
             @JoinColumn(name = "customer_id", referencedColumnName = "id")
     }, inverseJoinColumns = {
-            @JoinColumn(name="role_id", referencedColumnName = "id")
+            @JoinColumn(name = "role_id", referencedColumnName = "id")
     })
-    private Set<Role> roles= new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
-    public Customer(){}
+    public Customer() {
+    }
 
-    public void addRole(Role role){
+    public void addRole(Role role) {
         roles.add(role);
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getEmail() {
         return email;

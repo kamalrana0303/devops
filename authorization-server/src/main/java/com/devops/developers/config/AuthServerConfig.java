@@ -18,9 +18,9 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+
 import javax.sql.DataSource;
 import java.security.KeyPair;
-
 
 
 @Configuration
@@ -38,20 +38,21 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     private ClientDetailsService clientDetailServiceImpl;
 
     @Bean
-    public TokenStore tokenStore(){
+    public TokenStore tokenStore() {
         return new JwtTokenStore(converter());
     }
 
+
     @Bean
-    public JwtAccessTokenConverter converter(){
-        var v= new JwtAccessTokenConverter();
+    public JwtAccessTokenConverter converter() {
+        var v = new JwtAccessTokenConverter();
         v.setKeyPair(keyPair());
         return v;
     }
 
     @Bean
-    KeyPair keyPair(){
-        KeyStoreKeyFactory keyStoreKeyFactory= new KeyStoreKeyFactory(
+    KeyPair keyPair() {
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
                 new ClassPathResource("ssia.jks"),
                 "ssia123".toCharArray()
         );
@@ -72,7 +73,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer securityConfigurer) throws Exception{
+    public void configure(AuthorizationServerSecurityConfigurer securityConfigurer) throws Exception {
 
         securityConfigurer
                 .passwordEncoder(passwordEncoder)

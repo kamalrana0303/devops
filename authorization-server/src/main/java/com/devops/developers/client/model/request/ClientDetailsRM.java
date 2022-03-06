@@ -1,17 +1,15 @@
 package com.devops.developers.client.model.request;
 
-import com.devops.developers.client.dto.*;
-
 import java.util.Set;
 
 public class ClientDetailsRM {
     private String clientId;
-    private boolean secretRequired=true;
+    private boolean secretRequired = true;
     private String clientSecret;
-    private boolean scoped=true;
+    private boolean scoped = true;
     private Integer accessTokenValiditySeconds;
     private Integer refreshTokenValiditySeconds;
-    private boolean autoApprove=false;
+    private boolean autoApprove = false;
     private Set<ResourceRM> resourceIds;
     private Set<ScopeRM> scopes;
     private Set<GrantTypeRM> authorizedGrantTypes;

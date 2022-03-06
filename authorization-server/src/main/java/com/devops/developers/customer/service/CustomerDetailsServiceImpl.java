@@ -1,21 +1,23 @@
 package com.devops.developers.customer.service;
 
+import com.devops.developers.customer.customerdetail.CustomerDetailImpl;
 import com.devops.developers.customer.dao.UserDao;
 import com.devops.developers.customer.entity.Customer;
 import com.devops.developers.customer.entity.Role;
-import com.devops.developers.customer.customerdetail.CustomerDetailImpl;
 import com.devops.developers.dto.CustomerDto;
 import com.devops.developers.dto.RoleDto;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import  org.modelmapper.ModelMapper;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CustomerDetailsServiceImpl implements UserDetailsService, CustomerService {
@@ -33,44 +35,47 @@ public class CustomerDetailsServiceImpl implements UserDetailsService, CustomerS
         this.userDao = userDao;
         this.mapper = mapper;
         this.passwordEncoder = passwordEncoder;
-        this.roleService=roleService;
+        this.roleService = roleService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Customer> customer=userDao.findCustomerByUsername(username);
-        CustomerDetailImpl customerDetail=customer.map(c -> { return new CustomerDetailImpl(c);})
-                .orElseThrow(()-> new BadCredentialsException("bad credentials"));
-        return  customerDetail;
+        Optional<Customer> customer = userDao.findCustomerByUsername(username);
+        CustomerDetailImpl customerDetail = customer.map(c -> {
+                    return new CustomerDetailImpl(c);
+                })
+                .orElseThrow(() -> new BadCredentialsException("bad credentials"));
+        return customerDetail;
     }
 
     @Override
+    @PostAuthorize("hasPermission(returnObject,'READ')")
     public CustomerDto getCustomerByName(String name) {
-        Optional<Customer> customer=this.userDao.findCustomerByUsername(name);
-        if(!customer.isEmpty()){
-            return mapper.map(customer, CustomerDto.class);
+        Optional<Customer> customer = this.userDao.findCustomerByUsername(name);
+        if (!customer.isEmpty()) {
+            return mapper.map(customer.get(), CustomerDto.class);
         }
         return null;
     }
 
     @Override
-    public CustomerDto createCustomer(CustomerDto customerDto){
-        Customer customer=mapper.map(customerDto,Customer.class);
+    public CustomerDto createCustomer(CustomerDto customerDto) {
+        Customer customer = mapper.map(customerDto, Customer.class);
         customer.setEnabled(true);
         customer.setRoles(new HashSet<>());
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-
-        for(RoleDto roleDto: customerDto.getRoles()){
-            RoleDto saveRole=this.roleService.getRole(roleDto.getName());
+        customer.setUserId(UUID.randomUUID().toString());
+        for (RoleDto roleDto : customerDto.getRoles()) {
+            RoleDto saveRole = this.roleService.getRole(roleDto.getName());
             customer.addRole(mapper.map(saveRole, Role.class));
         }
 
-        customer=this.userDao.save(customer);
+        customer = this.userDao.save(customer);
 
-        if(customer==null){
+        if (customer == null) {
             throw new RuntimeException("bad request");
         }
 
-        return mapper.map(customer,CustomerDto.class);
+        return mapper.map(customer, CustomerDto.class);
     }
 }
