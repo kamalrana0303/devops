@@ -19,15 +19,14 @@ import java.net.URI;
 @RestController
 @RequestMapping("otp")
 public class OtpResource {
-    @Autowired
-    RestTemplate restTemplate;
 
-    @PostMapping
-    ResponseEntity<?> requestOtp(@RequestBody OtpRM otpRM, @Value("${application.authorization-server.baseurl}") String baseUrl) {
-        URI uri = URI.create(baseUrl);
-        UriComponentsBuilder path = UriComponentsBuilder.fromUri(uri).path("otp/request");
-        HttpEntity<OtpRM> entity = new HttpEntity<>(otpRM);
-        ResponseEntity<OtpRest> response = this.restTemplate.exchange(path.toUriString(), HttpMethod.POST, entity, OtpRest.class);
-        return response;
-    }
+//
+//    @PostMapping
+//    ResponseEntity<?> requestOtp(@RequestBody OtpRM otpRM, @Value("${application.authorization-server.baseurl}") String baseUrl) {
+//        URI uri = URI.create(baseUrl);
+//        UriComponentsBuilder path = UriComponentsBuilder.fromUri(uri).path("otp/request");
+//        HttpEntity<OtpRM> entity = new HttpEntity<>(otpRM);
+//        ResponseEntity<OtpRest> response = this.restTemplate.exchange(path.toUriString(), HttpMethod.POST, entity, OtpRest.class);
+//        return response;
+//    }
 }
