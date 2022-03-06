@@ -4,13 +4,11 @@ import com.devops.developers.client.dto.*;
 import com.devops.developers.client.model.request.*;
 import com.devops.developers.client.model.response.ClientDetailRest;
 import com.devops.developers.client.service.ClientDetailsRegisteration;
-import com.devops.developers.client.service.RedirectUriService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -99,7 +97,5 @@ public class ClientResource {
         ClientDto clientDto = this.clientDetailsRegisteration.deattachRegisteredRedirectUriFromClient(clientId, redireUri);
         return ResponseEntity.ok(mapper.map(clientDto, ClientDetailRest.class));
     }
-    /**
-     * remove redirect uris
-     * remove resource*/
+
 }
