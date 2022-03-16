@@ -117,4 +117,21 @@ public class CustomerDto {
     public void setRoles(Set<RoleDto> roles) {
         this.roles = roles;
     }
+
+    @Override
+    public String toString() {
+        return "CustomerDto{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", userId='" + userId + '\'' +
+                ", enabled=" + enabled +
+                ", accountNonLocked=" + accountNonLocked +
+                ", accountNonExpired=" + accountNonExpired +
+                ", credentialNonExpired=" + credentialNonExpired +
+                ", roles=" + roles +
+                '}';
+    }
 }

@@ -3,6 +3,7 @@ package com.devops.developers.client.service.impl;
 import com.devops.developers.client.clientdetail.ClientDetailsImpl;
 import com.devops.developers.client.dto.*;
 import com.devops.developers.client.entity.Client;
+import com.devops.developers.client.entity.GrantType;
 import com.devops.developers.client.model.request.ClientDetailsRM;
 import com.devops.developers.client.repository.ClientRepository;
 import com.devops.developers.client.service.*;
@@ -109,6 +110,7 @@ public class ClientDetailServiceImpl implements ClientDetailsService, ClientDeta
             this.clientRepository.save(client);
             return mapper.map(client, ClientDto.class);
         }).orElseThrow(() -> new RuntimeException("invalid cleint"));
+
     }
 
     @Override

@@ -16,7 +16,7 @@ public class Client extends BaseId {
     private Integer refreshTokenValiditySeconds;
     private boolean autoApprove = false;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", fetch = FetchType.EAGER)
     private Set<RedirectUri> registeredRedirectUri = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -24,15 +24,8 @@ import static org.springframework.security.oauth2.client.web.reactive.function.c
 @RequestMapping("customer")
 public class CustomerResource {
 
-
-//    @PostMapping("sign-up")
-//    public Mono<CustomerRest> userSignUp(@RequestBody CustomerRM customerRM, @Value("${application.authorization-server.baseurl}") String baseUrl) {
-//        URI baseurl = URI.create(baseUrl);
-//        UriComponentsBuilder uri = UriComponentsBuilder.fromUri(baseurl).path("customer/sign-up");
-//        HttpEntity<CustomerRM> entity = new HttpEntity<>(customerRM);
-//        ResponseEntity<CustomerRest> response = this.restTemplate.exchange(uri.toUriString(), HttpMethod.POST, entity, CustomerRest.class);
-//        return response;
-//    }
+    @Autowired
+    WebClient webClient;
 
     @GetMapping
     public Mono<String> getMessage(){

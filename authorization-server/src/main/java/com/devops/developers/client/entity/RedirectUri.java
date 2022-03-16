@@ -12,7 +12,7 @@ public class RedirectUri extends BaseId {
     @Column(unique = true, nullable = false)
     private String name;
     @ManyToOne
-    @JoinColumn(name = "redirectUris")
+    @JoinColumn(name = "client")
     private Client client;
 
     public String getName() {

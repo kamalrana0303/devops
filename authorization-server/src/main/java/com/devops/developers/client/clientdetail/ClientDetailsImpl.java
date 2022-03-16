@@ -63,10 +63,9 @@ public class ClientDetailsImpl implements ClientDetails {
 
     @Override
     public Set<String> getRegisteredRedirectUri() {
-        //Set<String> values= new HashSet<>();
-        // this.client.getRegisteredRedirectUri().forEach(registeredRedirectUri -> values.add(registeredRedirectUri.getName()));
-        // return values;
-        return Set.of("http://localhost:9090");
+        Set<String> values= new HashSet<>();
+        this.client.getRegisteredRedirectUri().forEach(r-> values.add(r.getName()));
+        return values;
     }
 
     @Override
