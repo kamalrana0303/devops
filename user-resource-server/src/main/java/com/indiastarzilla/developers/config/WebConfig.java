@@ -20,7 +20,7 @@ public class WebConfig {
     }
 
     private ClientRegistration clientRegistration(){
-        ClientRegistration cr = ClientRegistration.withRegistrationId("github")
+        ClientRegistration cr = ClientRegistration.withRegistrationId("client_authorization_code")
                 .clientId("client_authorization_code")
                 .clientSecret("client_authorization_code")
                 .scope(new String[]{"read"})
@@ -28,7 +28,7 @@ public class WebConfig {
                 .tokenUri("https://localhost:8080/oauth/token")
                 .clientName("client_authorization_code")
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("http://localhost:4200")
+               .redirectUri("http://localhost:4200")
                 .build();
         return cr;
     }

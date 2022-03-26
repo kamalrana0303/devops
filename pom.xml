@@ -6,7 +6,8 @@
     <modules>
         <module>authorization-server</module>
         <module>user-resource-server</module>
-        <module>oauth2authorization-server</module>
+        <module>notification</module>
+        <module>client-sso</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

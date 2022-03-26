@@ -4,9 +4,9 @@ management:
   server:
     port: 9090
 
-
-
 spring:
+  kafka:
+    bootstrap-servers: localhost:9092
   jpa:
     hibernate.ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -18,8 +18,6 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:8080/.well-known/jwks.json
-
-
 app:
   datasource:
     postgres:
@@ -32,22 +30,12 @@ app:
 
 authorization-server:
   clients:
-    client2:
-      client-secret: secret2
+    authorization_server_client_password:
+      client-secret: authorization_server_client_password
       scopes: read, write
       grant-types: password, refresh_token
       authorities: read, write
-    client3:
-      client-secret: secret3
-      scopes: read
-      grant-types: password
-      authorities: read
-    client4:
-      client-secret: secret4
-      scopes: read, write
-      grant-types: authorization_code
-      authorities: read, write
 
-logging:
-  level:
-    root: debug
+#logging:
+#  level:
+#    root: debug

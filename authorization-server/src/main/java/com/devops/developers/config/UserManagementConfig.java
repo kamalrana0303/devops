@@ -78,21 +78,11 @@ public class UserManagementConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin();
-        http.csrf().disable();
         http
                 .addFilterAt(new UserNamePasswordAuthFilter(authenticationManager(), customerService, rest, mapper), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable()
-                .cors(c->{
-                    CorsConfigurationSource cs= r->{
-                        CorsConfiguration cc=new CorsConfiguration();
-                        cc.setAllowedOrigins(List.of("http://localhost:4200"));
-                        cc.setAllowedHeaders(List.of("Request","Authorization"));
-                        cc.setAllowedMethods(List.of("REQUEST","POST", "GET"));
-                        return cc;
-                    };
-                    c.configurationSource(cs);
-                })
+                .cors()
+                .and()
                 .authorizeHttpRequests()
                 .mvcMatchers(HttpMethod.POST, "/otp/request").permitAll()
                 .mvcMatchers("/auth/token").permitAll()
@@ -104,6 +94,17 @@ public class UserManagementConfig extends WebSecurityConfigurerAdapter {
                 t.decoder(jwtDecoder()).jwtAuthenticationConverter(jwtAuthenticationConverter()).jwkSetUri(jwkSetUri);
             });
         });
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfiguration(){
+        CorsConfiguration config= new CorsConfiguration();
+        config.setAllowedHeaders(Collections.singletonList("*"));
+        config.setAllowedOrigins(Collections.singletonList("*"));
+        config.setAllowedMethods(Collections.singletonList("*"));
+        UrlBasedCorsConfigurationSource source= new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 
     public Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter() {

@@ -2,11 +2,13 @@ package com.devops.developers.otp.service.impl;
 
 import com.devops.developers.otp.dto.OtpDto;
 import com.devops.developers.otp.entity.Otp;
+import com.devops.developers.otp.model.response.OtpRest;
 import com.devops.developers.otp.repository.OtpRepository;
 import com.devops.developers.otp.service.OtpService;
 import com.devops.developers.utils.Util;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ public class OtpServiceImpl implements OtpService {
     OtpRepository otpRepository;
     @Autowired
     ModelMapper mapper;
+    @Autowired
+    KafkaTemplate<String, Otp> kafkaTemplate;
 
     @Override
     public OtpDto createOtp(OtpDto otpDto) {
@@ -28,6 +32,7 @@ public class OtpServiceImpl implements OtpService {
         otpDto.setOptId(Util.generateSmallLengthId());
         otpDto.setVerified(false);
         Otp savedOtp = otpRepository.save(mapper.map(otpDto, Otp.class));
+        kafkaTemplate.send("otp", mapper.map(savedOtp, Otp.class) );
         return mapper.map(savedOtp, OtpDto.class);
     }
 

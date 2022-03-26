@@ -28,26 +28,18 @@ public class CustomerResource {
         this.customerService = customerService;
     }
 
-
-
-//    @PostMapping("login")
-//    public ResponseEntity<?> userLogin(@RequestBody CustomerRM customerRM){
-//
-//    }
-//
-//    @PostMapping("sign-up")
-//    public ResponseEntity<?> singUpCustomer(@RequestBody CustomerRM customerRM) {
-//        CustomerDto customerDto = mapper.map(customerRM, CustomerDto.class);
-//        customerDto.setRoles(Collections.singleton(new RoleDto(RoleName.USER)));
-//        customerDto = this.customerService.createCustomer(customerDto);
-//        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().build("/sign-up");
-//        return ResponseEntity.ok(mapper.map(customerDto, CustomerRest.class));
-//    }
+    @PostMapping("sign-up")
+    public ResponseEntity<?> singUpCustomer(@RequestBody CustomerRM customerRM) {
+        CustomerDto customerDto = mapper.map(customerRM, CustomerDto.class);
+        customerDto.setRoles(Collections.singleton(new RoleDto(RoleName.USER)));
+        customerDto = this.customerService.createCustomer(customerDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().build("/sign-up");
+        return ResponseEntity.created(uri).build();
+    }
 
     @GetMapping("{username}")
     public ResponseEntity<?> getCustomerByName(@PathVariable("username") String username, Authentication a) {
         CustomerDto customerByName = this.customerService.getCustomerByName(username);
         return ResponseEntity.ok(mapper.map(customerByName, CustomerRest.class));
     }
-
 }
