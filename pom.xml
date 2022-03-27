@@ -7,7 +7,6 @@
         <module>authorization-server</module>
         <module>user-resource-server</module>
         <module>notification</module>
-        <module>client-sso</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
